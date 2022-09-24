@@ -1,6 +1,7 @@
 version: '3.0'
 services:
   db:
+    container_name: todolist-db
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: 'todo-bolttech'
@@ -10,6 +11,7 @@ services:
     ports:
       - '3306:3306'
   client:
+    container_name: todolist-client
     build:
       context: ./client
       dockerfile: ./docker/Dockerfile.dev
@@ -19,6 +21,7 @@ services:
       - ./client:/usr/src/bolttech-challenge/client
       - /usr/src/bolttech-challenge/client/node_modules
   api:
+    container_name: todolist-api
     build:
       context: ./api
       dockerfile: ./docker/Dockerfile.dev
