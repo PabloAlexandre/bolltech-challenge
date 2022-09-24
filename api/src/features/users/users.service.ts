@@ -3,7 +3,7 @@ import { Repository } from "typeorm";
 import { CreateUserRequestDTO } from "./dtos/CreateUserRequest";
 import { User } from "./user.entity";
 import {InjectRepository} from '@nestjs/typeorm';
-import { sign, verify } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { LoginResponseDTO } from "./dtos/LoginResponse";
 import { LoginRequestDTO } from "./dtos/LoginRequest";
 import { CryptoService } from "src/infrastructure/crypto/crypto.service";
