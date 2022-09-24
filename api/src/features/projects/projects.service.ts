@@ -52,6 +52,6 @@ export class ProjectsServices {
   async deleteProject(user, id) {
     const project = await this.getAndValidateProject(user, id);
 
-    await this.projectRepository.delete(project);
+    await this.projectRepository.remove(project);
   }
 }

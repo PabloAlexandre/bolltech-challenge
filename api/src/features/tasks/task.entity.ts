@@ -22,6 +22,6 @@ export class Task extends BaseEntity {
   })
   status: TaskStatus;
 
-  @Column()
-  finishedAt: Date;
+  @Column({ nullable: true })
+  finishedAt?: Date;
 }
