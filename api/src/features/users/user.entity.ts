@@ -13,6 +13,9 @@ export class User extends BaseEntity {
   name: string;
 
   @Column()
+  email: string;
+
+  @Column()
   password: string;
 
   @OneToMany(() => Project, (project) => project.user)

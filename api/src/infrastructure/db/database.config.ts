@@ -10,7 +10,7 @@ export const DatabaseConfig: DataSourceOptions = {
   entities: [
     __dirname + '/../../features/**/*.entity{.ts,.js}',
   ],
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: false,
   migrations: [
     __dirname + '/../../../migrations/**/*{.ts,.js}'
   ],
