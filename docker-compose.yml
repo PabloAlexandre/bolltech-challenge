@@ -9,3 +9,12 @@ services:
       MYSQL_ROOT_PASSWORD: 'pass!word'
     ports:
       - '3306:3306'
+  client:
+    build:
+      context: ./client
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/usr/src/bolttech-challenge/client
+      - /usr/src/bolttech-challenge/client/node_modules
