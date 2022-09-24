@@ -1,0 +1,11 @@
+version: '3.0'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: 'todo-bolttech'
+      MYSQL_USER: 'api-client'
+      MYSQL_PASSWORD: 'pa!ssword'
+      MYSQL_ROOT_PASSWORD: 'pass!word'
+    ports:
+      - '3306:3306'
