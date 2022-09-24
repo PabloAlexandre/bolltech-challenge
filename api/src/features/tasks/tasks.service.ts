@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProjectsServices } from "../projects/projects.service";
@@ -45,7 +45,8 @@ export class TasksServices {
 
   async editTask(user, id, payload) {
     const task = await this.getAndValidateTask(user, id);
-    task.project = id;
+
+    if(task.finishedAt) throw new BadRequestException('Task cannot be edited after finished');
 
     await this.taskRepository.update({
       id,
@@ -56,6 +57,8 @@ export class TasksServices {
 
   async deleteTasks(user, id) {
     const task = await this.getAndValidateTask(user, id);
+    if(task.finishedAt) throw new BadRequestException('Task cannot be deleted after finished');
+
     await this.taskRepository.remove(task);
   }
 }
