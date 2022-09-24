@@ -18,3 +18,12 @@ services:
     volumes:
       - ./client:/usr/src/bolttech-challenge/client
       - /usr/src/bolttech-challenge/client/node_modules
+  api:
+    build:
+      context: ./api
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./api:/usr/src/bolttech-challenge/api
+      - /usr/src/bolttech-challenge/api/node_modules

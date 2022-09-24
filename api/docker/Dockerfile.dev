@@ -1,0 +1,9 @@
+FROM node:16.17
+
+WORKDIR /usr/src/bolttech-challenge/api
+
+COPY package*.json ./
+
+RUN npm install
+
+CMD ["npm", "run", "start:dev"]
