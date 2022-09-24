@@ -3,7 +3,7 @@ import { Repository } from "typeorm";
 import { CreateUserRequestDTO } from "./dtos/CreateUserRequest";
 import { User } from "./user.entity";
 import {InjectRepository} from '@nestjs/typeorm';
-import jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { LoginResponseDTO } from "./dtos/LoginResponse";
 import { LoginRequestDTO } from "./dtos/LoginRequest";
 import { CryptoService } from "src/infrastructure/crypto/crypto.service";
@@ -26,7 +26,8 @@ export class UsersServices {
     const expiresIn = '12h';
 
     delete userData.password;
-    const token = jwt.sign(userData, process.env.TOKEN_SECRET || 'secret', { expiresIn });
+
+    const token = sign(Object.assign({}, userData), process.env.TOKEN_SECRET || 'secret', { expiresIn });
 
     return {
       accessToken: token,
@@ -46,7 +47,7 @@ export class UsersServices {
       password: await this.cryptoService.createPassword(payload.password) 
     };
 
-    const res = await this.userRepository.create(user);
+    const res = await this.userRepository.save(user);
 
     return this.getUserToken(res);
   }
