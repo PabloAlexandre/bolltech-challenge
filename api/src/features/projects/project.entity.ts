@@ -1,8 +1,9 @@
 import { BaseEntity } from "src/infrastructure/db/base.entity";
-import { Column, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Task } from "../tasks/task.entity";
 import { User } from "../users/user.entity";
 
+@Entity()
 export class Project extends BaseEntity {
   @Column()
   name: string;

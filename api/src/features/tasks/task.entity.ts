@@ -1,5 +1,5 @@
 import { BaseEntity } from "src/infrastructure/db/base.entity";
-import { Column, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { Project } from "../projects/project.entity";
 
 export enum TaskStatus {
@@ -7,6 +7,7 @@ export enum TaskStatus {
   DONE,
 }
 
+@Entity()
 export class Task extends BaseEntity {
   @ManyToOne(() => Project, (project) => project.tasks)
   project: Project;
@@ -17,7 +18,6 @@ export class Task extends BaseEntity {
   @Column({
     type:"enum", 
     enum: TaskStatus,
-    array: true,
     default: TaskStatus.TODO
   })
   status: TaskStatus;
