@@ -14,7 +14,7 @@ export class TasksController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get all projects' })
+  @ApiOperation({ summary: 'Get all tasks' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})
   @ApiResponse({ status: 200, description: "Success Response"})
   @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
@@ -26,7 +26,7 @@ export class TasksController {
   }
 
   @Get('/:id')
-  @ApiOperation({ summary: 'Get specific project' })
+  @ApiOperation({ summary: 'Get specific task' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})
   @ApiResponse({ status: 200, description: "Success Response"})
   @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
@@ -38,7 +38,7 @@ export class TasksController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a project' })
+  @ApiOperation({ summary: 'Create a task' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})
   @ApiResponse({ status: 200, description: "Success Response"})
   @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
@@ -51,11 +51,11 @@ export class TasksController {
   }
 
   @Put('/:id')
-  @ApiOperation({ summary: 'Edit a project' })
+  @ApiOperation({ summary: 'Edit a task' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})
   @ApiResponse({ status: 200, description: "Success Response"})
   @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
-  async editProject(
+  async editTask(
     @Body() task: CreateTaskDTO,
     @Param('id') id: string,
     @Request() req: any,
@@ -64,14 +64,14 @@ export class TasksController {
   }
 
   @Delete('/:id')
-  @ApiOperation({ summary: 'Delete a project' })
+  @ApiOperation({ summary: 'Delete a Task' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})
-  @ApiResponse({ status: 204, description: "Project deleted"})
+  @ApiResponse({ status: 204, description: "Task deleted"})
   @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
-  async deleteProject(
+  async deleteTask(
     @Param('id') id: string,
     @Request() req: any,
   ) { 
-    return this.tasksService.deleteProject(req.user.id, id);
+    return this.tasksService.deleteTasks(req.user.id, id);
   }
 }

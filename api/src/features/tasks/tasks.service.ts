@@ -54,7 +54,7 @@ export class TasksServices {
     return {...task, ...payload};
   }
 
-  async deleteProject(user, id) {
+  async deleteTasks(user, id) {
     const task = await this.getAndValidateTask(user, id);
     await this.taskRepository.remove(task);
   }
