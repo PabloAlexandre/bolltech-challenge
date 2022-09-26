@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { FormEvent, useState } from 'react';
 import { Input } from '../../../components';
 import { useForm } from '../../../hooks/useForm';
-import { Task } from './task';
+import { TaskGroups } from './task-groups';
 
 interface Props {
   name: string;
@@ -16,24 +16,16 @@ export const Project = ({
   const { getValue, setValue, resetValues } = useForm();
 
   const [tasks, setTasks] = useState([{
-    title: 'Lavar a louca'
+    title: 'Lavar a louca',
+    status: 0
   }]);
 
-  const EmptyState = () => <span>No tasks available yet...</span>;
-  const TasksState = () => <>
-    {
-      tasks.map(it => (
-        <Task title={it.title}/>
-      ))
-    }
-  </>;
 
-  const contentState = !tasks.length ? <EmptyState /> : <TasksState />
 
   function addTask(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    setTasks([...tasks, { title: getValue('task').toString() }]);
+    setTasks([...tasks, { title: getValue('task').toString(), status: 0 }]);
     resetValues();
   }
 
@@ -51,7 +43,7 @@ export const Project = ({
         </div>
       </header>
       <main>
-        { contentState }
+        <TaskGroups tasks={tasks} />
       </main>
       <footer>
         <form onSubmit={addTask}>
