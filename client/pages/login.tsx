@@ -3,7 +3,8 @@ import { Container, Input } from "../components";
 import { useForm } from "../hooks/useForm";
 import { APIClient } from "../utils/APIClient";
 import { saveUserCredentials } from '../utils/Auth';
-
+import Link
+ from "next/link";
 export default function LoginPage() {
   const { formState, getValue, setValue } = useForm();
 
@@ -24,6 +25,11 @@ export default function LoginPage() {
         <Input name="email" type="email" value={getValue('email')} onChange={setValue('email')} label="Email" />
         <Input name="password" type="password" value={getValue('password')} onChange={setValue('password')} label="Password" />
         <button type="submit" className="button">Login</button>
+        <Link href="signup">
+          <span className="auth-link">
+          Create your account
+          </span>
+        </Link>
       </form>
      
     </Container>

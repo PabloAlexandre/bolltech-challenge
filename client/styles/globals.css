@@ -56,3 +56,11 @@ a {
   margin-top: 12px;
   background-color: orange;
 }
+
+.auth-link {
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  margin: 16px 0;
+  color: blue;
+}

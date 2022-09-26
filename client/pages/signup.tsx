@@ -1,5 +1,6 @@
 import { Container, Input } from "../components";
 import { useForm } from "../hooks/useForm";
+import Link from "next/link";
 
 export default function SignUpPage() {
   const { getValue, setValue } = useForm();
@@ -14,6 +15,11 @@ export default function SignUpPage() {
         <Input name="password" type="password" value={getValue('password')} onChange={setValue('password')} label="Password" />
 
         <button type="submit" className="button">Login</button>
+        <Link href="login">
+          <span className="auth-link">
+          Enter in your account
+          </span>
+        </Link>
       </form>
      
     </Container>
