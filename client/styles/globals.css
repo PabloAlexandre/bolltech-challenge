@@ -15,12 +15,44 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+
+.container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vH;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 100%;
+
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  padding: 12px 8px;
+  margin: 16px 0;
+
+}
+
+.title {
+  text-align: center;
+  font-size: 4rem;
+}
+
+.button {
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  border: none;
+  margin-top: 12px;
+  background-color: orange;
 }
