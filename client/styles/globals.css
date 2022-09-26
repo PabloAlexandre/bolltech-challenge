@@ -136,13 +136,14 @@ a {
   padding: 8px 16px;
 }
 
-.card header .actions {
+.actions {
+  display: flex;
   color: #4274bb;
   font-size: 16px;
 }
 
 .card main {
-  padding: 24px;
+  padding: 12px 24px;
 }
 
 .card footer {
@@ -164,5 +165,4 @@ a {
 .card .item svg {
   display: flex;
   transform: scale(0.8);
-  margin-left: 8px;
 }

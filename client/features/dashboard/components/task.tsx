@@ -1,5 +1,7 @@
 import { Tooltip } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 import { ChangeEvent } from "react";
 
 interface Props {
@@ -17,12 +19,17 @@ export const Task = ({ title, id, onDelete, checked = false, onCheckChange, crea
     <Tooltip title={`Created at ${createdAt}`}>
       <label htmlFor={title}>{title}</label>
     </Tooltip>
-    <span>
+    <span className="actions">
       {
         !checked && (
-          <Tooltip title="Remove Task">
-            <DeleteIcon onClick={() => onDelete(id)}/>
-          </Tooltip>
+          <>
+            <Tooltip title="Edit Task">
+              <EditIcon />
+            </Tooltip>
+            <Tooltip title="Remove Task">
+              <DeleteIcon onClick={() => onDelete(id)}/>
+            </Tooltip>
+          </>
         )
       }
     </span>
