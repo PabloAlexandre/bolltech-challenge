@@ -4,7 +4,7 @@ export function useForm(initialValues = {}) {
   const [ formState, setFormState ] = useState<Record<string, string | number>>(initialValues);
 
   function getValue(name: string) {
-    return formState[name];
+    return formState[name] || '';
   }
 
   function setValue(name: string) {
@@ -12,7 +12,7 @@ export function useForm(initialValues = {}) {
       setFormState({ ...formState, [name]: e.target.value });
     }
   }
-  
+
   return {
     formState,
     getValue,
