@@ -50,6 +50,19 @@ export class TasksController {
     return this.tasksService.createTask(req.user.id, id, task);
   }
 
+
+  @Post('/:id/finish')
+  @ApiOperation({ summary: 'Finish a task' })
+  @ApiResponse({ status: 403, description: "Invalid credentials"})
+  @ApiResponse({ status: 200, description: "Success Response"})
+  @ApiHeader({ name: 'Authorization', description: 'Authorization Code'})
+  async finishTask(
+    @Param('id') id: string,
+    @Request() req: any,
+  ) { 
+    return this.tasksService.finishTask(req.user.id, id);
+  }
+
   @Put('/:id')
   @ApiOperation({ summary: 'Edit a task' })
   @ApiResponse({ status: 403, description: "Invalid credentials"})

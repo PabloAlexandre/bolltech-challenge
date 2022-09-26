@@ -1,22 +1,30 @@
 import { Tooltip } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ChangeEvent } from "react";
 
 interface Props {
   id: number;
   title: string;
+  checked?: boolean;
+  createdAt: string;
+  onCheckChange: (e: ChangeEvent<HTMLInputElement>) => void
   onDelete: (id: number) => void
 }
 
-export const Task = ({ title, id, onDelete }: Props) => (
+export const Task = ({ title, id, onDelete, checked = false, onCheckChange, createdAt }: Props) => (
   <div className="item">
-    <input type="checkbox" id={ title }/>
-    <Tooltip title="Will ends at...">
+    <input type="checkbox" id={ title } onChange={onCheckChange} checked={checked} disabled={checked} />
+    <Tooltip title={`Created at ${createdAt}`}>
       <label htmlFor={title}>{title}</label>
     </Tooltip>
     <span>
-    <Tooltip title="Remove Task">
-      <DeleteIcon onClick={() => onDelete(id)}/>
-    </Tooltip>
+      {
+        !checked && (
+          <Tooltip title="Remove Task">
+            <DeleteIcon onClick={() => onDelete(id)}/>
+          </Tooltip>
+        )
+      }
     </span>
   </div>
 )

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ProjectsServices } from "../projects/projects.service";
-import { Task } from "./task.entity";
+import { Task, TaskStatus } from "./task.entity";
 
 @Injectable()
 export class TasksServices {
@@ -39,6 +39,20 @@ export class TasksServices {
       ...payload,
       project
     });
+
+    return task;
+  }
+
+  async finishTask(user, id) {
+    const task = await this.getAndValidateTask(user, id);
+    if(task.finishedAt) throw new BadRequestException('Task already finished');
+
+    task.finishedAt = new Date();
+    task.status = TaskStatus.DONE;
+
+    await this.taskRepository.update({
+      id,
+    }, task);
 
     return task;
   }

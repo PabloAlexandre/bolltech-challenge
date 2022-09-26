@@ -45,6 +45,16 @@ export const Project = ({
       .then(() => setTasks(tasks.filter(it => it.id !== taskId)));
   }
 
+  function finishTask(taskId: number) {
+    APIClient.post(`/projects/${id}/tasks/${taskId}/finish`)
+      .then(({ data }) => setTasks(
+        tasks.map(it => {
+          if(it.id === taskId) return data;
+          return it; 
+        })
+      ));
+  }
+
   return (
     <div className="card">
       <header>
@@ -59,7 +69,7 @@ export const Project = ({
         </div>
       </header>
       <main>
-        <TaskGroups tasks={tasks} onDelete={deleteTask} />
+        <TaskGroups tasks={tasks} onDelete={deleteTask} onFinish={finishTask} />
       </main>
       <footer>
         <form onSubmit={addTask}>

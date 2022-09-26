@@ -7,33 +7,45 @@ const GroupLabels: Record<number, string> = {
   1: 'Done'
 };
 
-const renderTasks = (tasks: Task[], onDelete: (id: number) => void) => {
+interface RenderTaskOptions {
+  onDelete: (id: number) => void
+  onFinish: (id: number) => void
+}
+
+const renderTasks = (tasks: Task[], { onDelete, onFinish}: RenderTaskOptions) => {
   return tasks.map(it => (
-    <TaskComponent title={it.description} id={it.id} key={it.id} onDelete={onDelete} />
+    <TaskComponent
+      title={it.description} 
+      id={it.id} 
+      key={it.id} 
+      onDelete={onDelete} 
+      checked={(it.status === 1)} 
+      onCheckChange={() => onFinish(it.id)} 
+      createdAt={it.createdAt}
+    />
   ))
 }
 
 interface Props {
   tasks: Task[];
-  onDelete: (id: number) => void, 
+  onDelete: (id: number) => void,
+  onFinish: (id: number) => void
 }
 
-export const TaskGroups = ({ tasks, onDelete }: Props) => {
+export const TaskGroups = ({ tasks, onDelete, onFinish }: Props) => {
 
   const tasksPerGroup = useMemo(() => {
     return tasks.reduce<Record<string, Task[]>>((acc, it) => {
-      if(!GroupLabels[it.status]) return acc;
+      if (!GroupLabels[it.status]) return acc;
 
       const title = GroupLabels[it.status];
-
-      if (!acc[title]) return { ...acc, [title]: [it] };
       return { ...acc, [title]: [...acc[title], it] }
-    }, {});
+    }, { 'To Do': [], 'Done': [] });
   }, [tasks]);
 
   const EmptyState = () => <span>No tasks available yet...</span>;
 
-  if(!tasks.length) return <EmptyState />;
+  if (!tasks.length) return <EmptyState />;
 
   return (
     <div>
@@ -41,7 +53,7 @@ export const TaskGroups = ({ tasks, onDelete }: Props) => {
         Object.entries(tasksPerGroup).map(([title, tasks]) => (
           <>
             <h3>{title}</h3>
-            {renderTasks(tasks, onDelete)}
+            {renderTasks(tasks, {onDelete, onFinish})}
           </>
         ))}
     </div>

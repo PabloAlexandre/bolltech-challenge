@@ -125,6 +125,7 @@ a {
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
+  height: fit-content;
 }
 
 .card header {
