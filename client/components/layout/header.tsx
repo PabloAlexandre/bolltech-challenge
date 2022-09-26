@@ -2,11 +2,13 @@ import React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { logout } from '../../utils/Auth';
+import { getDataFromToken, logout } from '../../utils/Auth';
 import { useRouter } from 'next/router';
 
 export function Header() {
   const router = useRouter();
+  const userInfo = getDataFromToken();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -27,7 +29,7 @@ export function Header() {
       <h1>Todolist Challenge</h1>
       <div >
         <div className="user-info" onClick={handleClick}>
-          <span >Name</span>
+          <span>{ userInfo.name }</span>
           <ArrowDropDownIcon />
         </div>
         
