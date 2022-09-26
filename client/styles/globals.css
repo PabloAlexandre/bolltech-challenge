@@ -100,3 +100,28 @@ a {
   text-align: center;
   background: #efefef;
 }
+
+.dashboard .projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card header {
+  background: #efefef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.card header .actions {
+  color: #4274bb;
+  font-size: 16px;
+}

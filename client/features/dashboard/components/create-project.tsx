@@ -2,14 +2,19 @@ import { FormEvent } from "react";
 import { Input } from "../../../components"
 import { useForm } from "../../../hooks/useForm"
 
-export const CreateProject = () => {
+interface Props {
+  onCreate: (project: any) => void
+}
+export const CreateProject = ({
+  onCreate
+}: Props) => {
   const { getValue, setValue, resetValues } = useForm();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    alert(getValue('project'));
     resetValues();
+    onCreate(getValue('project'));
   }
   
   return (
