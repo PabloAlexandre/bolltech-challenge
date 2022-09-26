@@ -55,7 +55,14 @@ a {
   border: none;
   margin-top: 12px;
   background-color: orange;
+  border-radius: 8px;
 }
+
+.button.blue {
+  background-color: #07bddf;
+  color: white;
+}
+
 
 .auth-link {
   display: block;
@@ -78,4 +85,18 @@ a {
 .user-info {
   display: flex;
   align-items: center;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 32px;
+  padding: 0 40px;
+  margin-top: 24px;
+}
+
+.dashboard .create-project {
+  padding: 48px;
+  text-align: center;
+  background: #efefef;
 }

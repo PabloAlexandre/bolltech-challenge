@@ -13,9 +13,14 @@ export function useForm(initialValues = {}) {
     }
   }
 
+  function resetValues() {
+    setFormState({});
+  }
+
   return {
     formState,
     getValue,
     setValue,
+    resetValues,
   }
 }
