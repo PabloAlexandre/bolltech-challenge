@@ -14,7 +14,7 @@ export const Input = ({ value, type = 'text', name, onChange, placeholder, label
   return (
     <>
       {label && <label htmlFor={name}>{ label } </label> }
-      <input className="input" type={type} onChange={onChange} value={value} placeholder={placeholder} name={name} />
+      <input className="input" type={type} onChange={onChange} value={value} placeholder={placeholder} name={name} required />
       {error && <span>{error}</span>}
     </>
   )
