@@ -63,6 +63,17 @@ a {
   color: white;
 }
 
+.button.green {
+  background-color: #00b930;
+  color: white;
+}
+
+.button.min {
+  padding: 8px;
+  width: auto;
+  height: 48px;
+  margin-top: 14px;
+}
 
 .auth-link {
   display: block;
@@ -99,12 +110,14 @@ a {
   padding: 48px;
   text-align: center;
   background: #efefef;
+  height: fit-content;
 }
 
 .dashboard .projects {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+  height: fit-content;
 }
 
 .card {
@@ -124,4 +137,16 @@ a {
 .card header .actions {
   color: #4274bb;
   font-size: 16px;
+}
+
+.card main {
+  padding: 24px;
+}
+
+.card footer {
+  border-top: 1px solid #ccc;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 32px;
 }
