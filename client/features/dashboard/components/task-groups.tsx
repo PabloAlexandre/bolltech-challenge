@@ -1,27 +1,24 @@
 import { useMemo } from "react";
-import { Task } from "./task";
+import { Task } from "../dashboard.types";
+import { Task as TaskComponent } from "./task";
 
 const GroupLabels: Record<number, string> = {
   0: 'To Do',
   1: 'Done'
 };
 
-interface Task {
-  title: string;
-  status: number;
-}
-
-const renderTasks = (tasks: Task[]) => {
+const renderTasks = (tasks: Task[], onDelete: (id: number) => void) => {
   return tasks.map(it => (
-    <Task title={it.title} />
+    <TaskComponent title={it.description} id={it.id} key={it.id} onDelete={onDelete} />
   ))
 }
 
 interface Props {
   tasks: Task[];
+  onDelete: (id: number) => void, 
 }
 
-export const TaskGroups = ({ tasks }: Props) => {
+export const TaskGroups = ({ tasks, onDelete }: Props) => {
 
   const tasksPerGroup = useMemo(() => {
     return tasks.reduce<Record<string, Task[]>>((acc, it) => {
@@ -44,7 +41,7 @@ export const TaskGroups = ({ tasks }: Props) => {
         Object.entries(tasksPerGroup).map(([title, tasks]) => (
           <>
             <h3>{title}</h3>
-            {renderTasks(tasks)}
+            {renderTasks(tasks, onDelete)}
           </>
         ))}
     </div>
