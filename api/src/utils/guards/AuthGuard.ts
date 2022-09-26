@@ -1,5 +1,5 @@
 
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { verify } from 'jsonwebtoken';
 
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
     const token = request.headers.authorization;
 
-    if(!token) throw new UnauthorizedException();
+    if(!token) throw new ForbiddenException();
 
     try {
       const payload = verify(token, process.env.TOKEN_SECRET || 'secret');
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       
       return true;
     } catch(err) {
-      throw new UnauthorizedException();
+      throw new ForbiddenException();
     }
   }
 }
