@@ -4,8 +4,10 @@ import Link from "next/link";
 import { FormEvent } from "react";
 import { saveUserCredentials } from "../utils/Auth";
 import { APIClient } from "../utils/APIClient";
+import { useRouter } from "next/router";
 
 export default function SignUpPage() {
+  const router = useRouter();
   const { formState, getValue, setValue } = useForm();
 
 
@@ -15,6 +17,7 @@ export default function SignUpPage() {
     APIClient.post('/users', formState)
       .then(({ data }) => {
         saveUserCredentials(data.accessToken);
+        router.push('/');
       })
       .catch(() => alert('Invalid email or password, please try again'));
   }

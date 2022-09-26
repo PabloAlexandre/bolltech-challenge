@@ -5,3 +5,7 @@ export function saveUserCredentials(token: string) {
 export function getUserCredentials() {
   return localStorage.getItem('auth-key');
 }
+
+export function logout() {
+  return localStorage.removeItem('auth-key');
+}

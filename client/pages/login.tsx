@@ -5,7 +5,9 @@ import { APIClient } from "../utils/APIClient";
 import { saveUserCredentials } from '../utils/Auth';
 import Link
  from "next/link";
+import { useRouter } from "next/router";
 export default function LoginPage() {
+  const router = useRouter();
   const { formState, getValue, setValue } = useForm();
 
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -14,6 +16,7 @@ export default function LoginPage() {
     APIClient.post('/login', formState)
       .then(({ data }) => {
         saveUserCredentials(data.accessToken);
+        router.push('/');
       })
       .catch(() => alert('Invalid email or password, please check info'));
   }
