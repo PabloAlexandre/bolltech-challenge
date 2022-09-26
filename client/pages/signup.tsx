@@ -1,13 +1,27 @@
 import { Container, Input } from "../components";
 import { useForm } from "../hooks/useForm";
 import Link from "next/link";
+import { FormEvent } from "react";
+import { saveUserCredentials } from "../utils/Auth";
+import { APIClient } from "../utils/APIClient";
 
 export default function SignUpPage() {
-  const { getValue, setValue } = useForm();
+  const { formState, getValue, setValue } = useForm();
+
+
+  const handleSignupSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    APIClient.post('/users', formState)
+      .then(({ data }) => {
+        saveUserCredentials(data.accessToken);
+      })
+      .catch(() => alert('Invalid email or password, please try again'));
+  }
 
   return (
     <Container>
-      <form className="login">
+      <form className="login" onSubmit={handleSignupSubmit}>
         <h1 className="title">Sign up</h1>
         
         <Input name="name" type="text" value={getValue('name')} onChange={setValue('name')} label="Name" />
