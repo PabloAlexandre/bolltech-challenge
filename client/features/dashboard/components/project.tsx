@@ -3,6 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Tooltip from '@mui/material/Tooltip';
 import { FormEvent, useEffect, useState } from 'react';
 import { Input } from '../../../components';
+import { Dialog } from '../../../components/layout/dialog';
 import { useForm } from '../../../hooks/useForm';
 import { APIClient } from '../../../utils/APIClient';
 import { Task } from '../dashboard.types';
@@ -12,15 +13,19 @@ interface Props {
   id: number;
   name: string;
   onDelete: (id: number) => void
+  onEdit: (id: number) => void
 }
 
 export const Project = ({
   id,
   name,
+  onEdit,
   onDelete
 }: Props) => {
   const { getValue, setValue, resetValues } = useForm();
 
+  const [editingTask, setEditingTask] = useState<Task>();
+  
   const [tasks, setTasks] = useState<Task[]>([]);
   
   useEffect(() => {
@@ -55,13 +60,27 @@ export const Project = ({
       ));
   }
 
+  const onEditTask = (id: number) => {
+    setEditingTask(tasks.find(it => it.id === id));
+  }
+
+  const updateTask = (task: Task) => {
+    APIClient.put(`/projects/${id}/tasks/${task.id}`, task)
+      .then(({ data }) => setTasks(tasks.map(it => {
+        if(it.id === task.id) return data;
+
+        return it;
+      }))).finally(() => setEditingTask(undefined));
+  }
+
+
   return (
     <div className="card">
       <header>
         <span>Project {name}</span>
         <div className="actions">
           <Tooltip title="Edit Project">
-            <EditIcon />
+            <EditIcon onClick={() => onEdit(id)}/>
           </Tooltip>
           <Tooltip title="Remove Project" >
             <DeleteIcon onClick={() => onDelete(id)}/>
@@ -69,7 +88,7 @@ export const Project = ({
         </div>
       </header>
       <main>
-        <TaskGroups tasks={tasks} onDelete={deleteTask} onFinish={finishTask} />
+        <TaskGroups tasks={tasks} onDelete={deleteTask} onFinish={finishTask} onEdit={onEditTask} />
       </main>
       <footer>
         <form onSubmit={addTask}>
@@ -77,6 +96,14 @@ export const Project = ({
           <button className="button green min">Add</button>
         </form>
       </footer>
+      <Dialog
+        opened={!!editingTask} 
+        title="Edit Task" 
+        description="" 
+        initialValue={editingTask?.description || ""} 
+        onClose={() => setEditingTask(undefined)}
+        onConfirm={(value) => updateTask({ ...editingTask, description: value } as Task)}
+      />
     </div>
   )
 

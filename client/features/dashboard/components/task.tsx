@@ -11,9 +11,11 @@ interface Props {
   createdAt: string;
   onCheckChange: (e: ChangeEvent<HTMLInputElement>) => void
   onDelete: (id: number) => void
+  onEdit: (id: number) => void
+
 }
 
-export const Task = ({ title, id, onDelete, checked = false, onCheckChange, createdAt }: Props) => (
+export const Task = ({ title, id, onDelete, onEdit, checked = false, onCheckChange, createdAt }: Props) => (
   <div className="item">
     <input type="checkbox" id={ title } onChange={onCheckChange} checked={checked} disabled={checked} />
     <Tooltip title={`Created at ${createdAt}`}>
@@ -24,7 +26,7 @@ export const Task = ({ title, id, onDelete, checked = false, onCheckChange, crea
         !checked && (
           <>
             <Tooltip title="Edit Task">
-              <EditIcon />
+              <EditIcon onClick={() => onEdit(id)}/>
             </Tooltip>
             <Tooltip title="Remove Task">
               <DeleteIcon onClick={() => onDelete(id)}/>

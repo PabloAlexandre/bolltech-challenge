@@ -13,6 +13,10 @@ export function useForm(initialValues = {}) {
     }
   }
 
+  function setRawValue(name: string, value: string) {
+    setFormState({ ...formState, [name]: value });
+  }
+
   function resetValues() {
     setFormState({});
   }
@@ -20,6 +24,7 @@ export function useForm(initialValues = {}) {
   return {
     formState,
     getValue,
+    setRawValue,
     setValue,
     resetValues,
   }

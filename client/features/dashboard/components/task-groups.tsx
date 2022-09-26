@@ -10,15 +10,17 @@ const GroupLabels: Record<number, string> = {
 interface RenderTaskOptions {
   onDelete: (id: number) => void
   onFinish: (id: number) => void
+  onEdit: (id: number) => void
 }
 
-const renderTasks = (tasks: Task[], { onDelete, onFinish}: RenderTaskOptions) => {
+const renderTasks = (tasks: Task[], { onDelete, onFinish, onEdit }: RenderTaskOptions) => {
   return tasks.map(it => (
     <TaskComponent
       title={it.description} 
       id={it.id} 
       key={it.id} 
       onDelete={onDelete} 
+      onEdit={onEdit}
       checked={(it.status === 1)} 
       onCheckChange={() => onFinish(it.id)} 
       createdAt={it.createdAt}
@@ -30,9 +32,10 @@ interface Props {
   tasks: Task[];
   onDelete: (id: number) => void,
   onFinish: (id: number) => void
+  onEdit: (id: number) => void
 }
 
-export const TaskGroups = ({ tasks, onDelete, onFinish }: Props) => {
+export const TaskGroups = ({ tasks, onDelete, onFinish, onEdit }: Props) => {
 
   const tasksPerGroup = useMemo(() => {
     return tasks.reduce<Record<string, Task[]>>((acc, it) => {
@@ -53,7 +56,7 @@ export const TaskGroups = ({ tasks, onDelete, onFinish }: Props) => {
         Object.entries(tasksPerGroup).map(([title, tasks]) => (
           <>
             <h3>{title}</h3>
-            {renderTasks(tasks, {onDelete, onFinish})}
+            {renderTasks(tasks, {onDelete, onFinish, onEdit})}
           </>
         ))}
     </div>
