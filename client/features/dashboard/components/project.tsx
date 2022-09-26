@@ -27,10 +27,10 @@ export const Project = ({
         </div>
       </header>
       <main>
-
+        <span>No tasks available yet...</span>
       </main>
       <footer>
-        <Input name="task" onChange={setValue('task')} value={getValue('task')} /> 
+        <Input name="task" onChange={setValue('task')} value={getValue('task')} placeholder="Task" /> 
         <button className="button green min">Add</button>
       </footer>
     </div>
