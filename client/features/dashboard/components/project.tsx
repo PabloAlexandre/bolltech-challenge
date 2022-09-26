@@ -7,11 +7,15 @@ import { useForm } from '../../../hooks/useForm';
 import { TaskGroups } from './task-groups';
 
 interface Props {
+  id: number;
   name: string;
+  onDelete: (id: number) => void
 }
 
 export const Project = ({
+  id,
   name,
+  onDelete
 }: Props) => {
   const { getValue, setValue, resetValues } = useForm();
 
@@ -19,8 +23,7 @@ export const Project = ({
     title: 'Lavar a louca',
     status: 0
   }]);
-
-
+  
 
   function addTask(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,8 +40,8 @@ export const Project = ({
           <Tooltip title="Edit Project">
             <EditIcon />
           </Tooltip>
-          <Tooltip title="Remove Project">
-            <DeleteIcon />
+          <Tooltip title="Remove Project" >
+            <DeleteIcon onClick={() => onDelete(id)}/>
           </Tooltip>
         </div>
       </header>

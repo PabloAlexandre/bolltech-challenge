@@ -4,9 +4,11 @@ import { useForm } from "../../../hooks/useForm"
 
 interface Props {
   onCreate: (project: any) => void
+  isLoading: boolean;
 }
 export const CreateProject = ({
-  onCreate
+  onCreate,
+  isLoading
 }: Props) => {
   const { getValue, setValue, resetValues } = useForm();
 
@@ -22,7 +24,7 @@ export const CreateProject = ({
       <h2>Create a new project</h2>
       <form onSubmit={handleSubmit}>
         <Input name="project" placeholder="Project name" onChange={setValue("project")} value={getValue("project")} />
-        <button className="button blue">Create Project</button>
+        <button className="button blue" disabled={isLoading}>Create Project</button>
       </form>
     </section>
   )
